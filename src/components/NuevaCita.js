@@ -36,23 +36,37 @@ export default class NuevaCita extends Component {
       hora === "" ||
       sintomas === ""
     ) {
-      console.error("no se rellenaron los campos pedidos ");
-
       this.setState({ error: true });
 
       return;
     }
 
     this.props.crearNuevaCita(nuevaCita);
+    this.setState({
+      cita: {
+        mascota: "",
+        propietario: "",
+        fecha: "",
+        hora: "",
+        sintomas: ""
+      },
+      error: false
+    });
   };
 
   render() {
+    const { error } = this.state;
     return (
       <div className="card mt-5 py-5">
         <div className="card-body">
           <h2 className="card-title text-center b-5">
             Llena el formulario para crear una nueva cita
           </h2>
+          {error ? (
+            <div className="alert alert-danger text-center" role="alert">
+              Por favor ingrese todos los datos
+            </div>
+          ) : null}
           <form onSubmit={this.handleSubmit}>
             <div className="form-group row">
               <label className="col-sm-4 col-lg-2 col-form-label">
