@@ -3,24 +3,7 @@ import { MOSTRAR_CITAS, BORRAR_CITA, AGREGAR_CITA } from "../actions/types";
 //state inicial, cada reducer debe tener su propio state
 
 const initialState = {
-  citas: [
-    {
-      id: 0,
-      fecha: "10-20-30",
-      hora: "10:30",
-      mascota: "perrito",
-      propietario: "Juan",
-      sintomas: "ya no quiere comer"
-    },
-    {
-      id: 1,
-      fecha: "10-20-30",
-      hora: "10:30",
-      mascota: "perrito",
-      propietario: "Juan",
-      sintomas: "ya no quiere comer"
-    }
-  ]
+  citas: []
 };
 
 export default (state = initialState, action) => {

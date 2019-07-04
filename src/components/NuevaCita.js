@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import uuid from "uuid";
 import { connect } from "react-redux";
 import { agregarCitas } from "../redux/actions/citasActions";
+import { mostrarError } from "../redux/actions/errorActions";
 
 class NuevaCita extends Component {
   state = {
@@ -11,8 +12,7 @@ class NuevaCita extends Component {
       fecha: "",
       hora: "",
       sintomas: ""
-    },
-    error: false
+    }
   };
 
   handleChange = e => {
@@ -26,8 +26,6 @@ class NuevaCita extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    console.log("enviando informacion pedida");
-
     const nuevaCita = { ...this.state.cita };
     nuevaCita.id = uuid();
     const { mascota, propietario, fecha, hora, sintomas } = this.state.cita;
@@ -38,7 +36,8 @@ class NuevaCita extends Component {
       hora === "" ||
       sintomas === ""
     ) {
-      this.setState({ error: true });
+      // this.setState({ error: true }); //
+      this.props.mostrarError(true);
 
       return;
     }
@@ -51,13 +50,15 @@ class NuevaCita extends Component {
         fecha: "",
         hora: "",
         sintomas: ""
-      },
-      error: false
+      }
     });
+    // this.setState({ error: false }); //
+    this.props.mostrarError(false);
   };
 
   render() {
-    const { error } = this.state;
+    const { error } = this.props;
+    // this.state;
     return (
       <div className="card mt-5 py-5">
         <div className="card-body">
@@ -151,12 +152,16 @@ class NuevaCita extends Component {
   }
 }
 const mapStateToProps = state => ({
-  citas: state.citas.citas
+  // citas: state.citas.citas,
+  error: state.error.error
 });
 const mapDispatchToProps = dispatch => {
   return {
     crearNuevaCita: cita => {
       dispatch(agregarCitas(cita));
+    },
+    mostrarError: error => {
+      dispatch(mostrarError(error));
     }
   };
 };
