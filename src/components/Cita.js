@@ -1,4 +1,6 @@
 import React from "react";
+import { connect } from "react-redux";
+import { borrarCita } from "../redux/actions/citasActions";
 
 const Cita = ({ cita, eliminarCita }) => (
   <div className="media mt-3">
@@ -14,5 +16,15 @@ const Cita = ({ cita, eliminarCita }) => (
     </div>
   </div>
 );
+const mapDispatchToProps = dispatch => {
+  return {
+    eliminarCita: id => {
+      dispatch(borrarCita(id));
+    }
+  };
+};
 
-export default Cita;
+export default connect(
+  null,
+  mapDispatchToProps
+)(Cita);

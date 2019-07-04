@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import uuid from "uuid";
+import { connect } from "react-redux";
+import { agregarCitas } from "../redux/actions/citasActions";
 
-export default class NuevaCita extends Component {
+class NuevaCita extends Component {
   state = {
     cita: {
       mascota: "",
@@ -148,3 +150,18 @@ export default class NuevaCita extends Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  citas: state.citas.citas
+});
+const mapDispatchToProps = dispatch => {
+  return {
+    crearNuevaCita: cita => {
+      dispatch(agregarCitas(cita));
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NuevaCita);
